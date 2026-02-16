@@ -1,11 +1,8 @@
 package com.example.GEDS.entity;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
@@ -35,13 +32,12 @@ public class GroupMember {
     @JoinColumn(name = "group_id", nullable = false)
     private Group group;
 
-    @JsonIgnoreProperties({"groups", "password", "email"})
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "member_id", nullable = false)
     private User member;
 
     @CreationTimestamp
-    @Column(nullable = false,updatable = false,name = "joined_at")
+    @Column(nullable = false, updatable = false, name = "joined_at")
     private LocalDateTime joinedAt;
 
 }

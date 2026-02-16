@@ -1,14 +1,19 @@
 package com.example.GEDS.dto;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
-@Getter @Setter
+import java.time.LocalDateTime;
+
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class GroupMemberRes {
 
-    @NotBlank
     private String message;
+    private Long memberId;
+    private String memberName;
+    private String groupName;
+    private LocalDateTime joinedAt;
 }

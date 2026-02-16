@@ -1,7 +1,7 @@
 services:
   postgres:
     image: postgres:15
-    container_name: finance-postgres
+    container_name: GEDS-postgres
     restart: unless-stopped
     environment:
       POSTGRES_DB: geds_db
@@ -11,8 +11,6 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    networks:
-      - geds-network
 
 volumes:
   postgres_data:

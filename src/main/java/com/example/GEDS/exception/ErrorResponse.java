@@ -1,7 +1,5 @@
-package com.example.GEDS.config;
+package com.example.GEDS.exception;
 
-
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,5 +18,4 @@ public class ErrorResponse {
         this.message = message;
         this.timestamp = System.currentTimeMillis();
     }
-
 }

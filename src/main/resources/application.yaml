@@ -29,3 +29,8 @@ server:
     include-message: always
     include-binding-errors: always
 
+# FIX 21: JWT config externalized from JwtUtil hardcoded constant
+# Secret must be at least 32 characters for HS256
+jwt:
+  secret: "change-this-to-a-strong-random-secret-in-production"
+  expiration-ms: 3600000  # 1 hour in milliseconds

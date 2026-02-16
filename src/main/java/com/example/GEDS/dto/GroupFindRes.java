@@ -7,9 +7,8 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class GroupResponse {
-
-    private String groupName;
-    private Long groupId;
+public class GroupFindRes {
+    private Long id;
+    private String name;
     private Long ownerId;
 }

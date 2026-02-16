@@ -6,9 +6,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.Optional;
 
-public interface GroupMemberRepo extends JpaRepository<GroupMember,Long> {
+public interface GroupMemberRepo extends JpaRepository<GroupMember, Long> {
 
     List<GroupMember> findByGroupId(Long groupId);
-    Optional<GroupMember> findByGroupIdAndUserId(Long groupId, Long userId);
 
+    // "member" is the field name in GroupMember entity (JoinColumn = member_id)
+    Optional<GroupMember> findByGroupIdAndMemberId(Long groupId, Long memberId);
+
+    boolean existsByGroupIdAndMemberId(Long groupId, Long memberId);
 }

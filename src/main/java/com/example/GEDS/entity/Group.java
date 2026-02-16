@@ -12,11 +12,8 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "groups",
-        uniqueConstraints = {
-                @UniqueConstraint(columnNames = {"name", "ownerId"})
-        },
         indexes = {
-                @Index(name = "idx_groups_owner_id", columnList = "ownerId")
+                @Index(name = "idx_groups_owner_id", columnList = "owner_id")
         })
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -24,30 +21,27 @@ import java.time.LocalDateTime;
 @Builder
 public class Group {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
-    @Size(min = 6, max = 100)
-    @Column(nullable = false,length = 100,unique = true)
+    @Size(min = 2, max = 100)
+    @Column(nullable = false, length = 100, unique = true)
     private String name;
 
     @JsonIgnoreProperties({"groups", "password", "email"})
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id", nullable = false)
-    private User ownerId;
-
+    private User owner;
 
     @CreationTimestamp
-    @Column(nullable = false, updatable = false,name = "created_at")
+    @Column(nullable = false, updatable = false, name = "created_at")
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
-    @Column(nullable = false,name = "updated_at")
+    @Column(nullable = false, name = "updated_at")
     private LocalDateTime updatedAt;
-
 
     public void rename(String name) {
         this.name = name;

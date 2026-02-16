@@ -1,4 +1,4 @@
-package com.example.GEDS.config;
+package com.example.GEDS.exception;
 
 public class EmailAlreadyExistsException extends RuntimeException {
     public EmailAlreadyExistsException(String message) {

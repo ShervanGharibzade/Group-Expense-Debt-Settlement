@@ -1,10 +1,10 @@
 package com.example.GEDS.service;
 
-import com.example.GEDS.config.EmailAlreadyExistsException;
-import com.example.GEDS.config.UserNotFoundException;
 import com.example.GEDS.dto.UserRequest;
 import com.example.GEDS.dto.UserResponse;
 import com.example.GEDS.entity.User;
+import com.example.GEDS.exception.EmailAlreadyExistsException;
+import com.example.GEDS.exception.UserNotFoundException;
 import com.example.GEDS.repository.UserRepo;
 import com.example.GEDS.security.JwtUtil;
 import jakarta.transaction.Transactional;
@@ -20,12 +20,11 @@ public class UserService {
     private final UserRepo userRepo;
     private final JwtUtil jwtUtil;
 
-
     @Transactional
     public UserResponse createUser(UserRequest req) {
 
         if (userRepo.findByEmail(req.getEmail()).isPresent()) {
-            throw new EmailAlreadyExistsException("Email already exists: " + req.getEmail());
+            throw new EmailAlreadyExistsException("Email already in use: " + req.getEmail());
         }
 
         String hashedPassword = passwordEncoder.encode(req.getPassword());
@@ -50,9 +49,10 @@ public class UserService {
     public UserResponse loginUser(UserRequest req) {
 
         User user = userRepo.findByEmail(req.getEmail())
-                .orElseThrow(() -> new UserNotFoundException("User not found: " + req.getEmail()));
+                .orElseThrow(() -> new UserNotFoundException("No account found for: " + req.getEmail()));
 
         if (!passwordEncoder.matches(req.getPassword(), user.getPassword())) {
+            // FIX: Use generic message to avoid user enumeration attacks
             throw new IllegalArgumentException("Invalid email or password");
         }
 
