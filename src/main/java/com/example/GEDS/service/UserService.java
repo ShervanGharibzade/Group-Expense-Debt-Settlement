@@ -38,7 +38,7 @@ public class UserService {
 
         userRepo.save(user);
 
-        String token = jwtUtil.generateToken(user.getEmail()git);
+        String token = jwtUtil.generateToken(user.getEmail());
 
         return UserResponse.builder()
                 .name(user.getName())
